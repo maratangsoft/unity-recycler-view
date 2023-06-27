@@ -51,7 +51,7 @@ namespace Sample
 
 		public void BindCell(ICell cell, int index)
 		{
-			var item = cell as SampleRecyclerViewCell;
+			var item = cell as SampleCell;
 			item.BindCell(_itemDataList[index], index);
 		}
 	}

@@ -1,18 +1,17 @@
 using Maratangsoft.RecyclerView;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Sample
 {
-	public class SampleRecyclerViewCell : MonoBehaviour, ICell
+	public class SampleCell : MonoBehaviour, ICell
 	{
 		[SerializeField]
-		private TextMeshProUGUI indexText;
+		private Text indexText;
 		[SerializeField]
-		private TextMeshProUGUI nameText;
+		private Text nameText;
 		[SerializeField]
-		private TextMeshProUGUI ageText;
+		private Text ageText;
 
 		private SampleData _sampleData;
 		private int _cellIndex;

@@ -7,38 +7,41 @@ using UnityEngine.UIElements;
 namespace Maratangsoft.RecyclerView
 {
 	[RequireComponent(typeof(ScrollRect))]
-	[RequireComponent (typeof(RectTransform))]
+	[RequireComponent(typeof(RectTransform))]
 	public class RecyclerView : MonoBehaviour
 	{
 		[SerializeField]
 		private RectTransform baseCell;
-
-		// parameters about design
 		[SerializeField]
-		private float invisibleRate;
+		private float populationCoverage;
 		[SerializeField]
 		private float spacingHeight = 4.0f;
 		[SerializeField]
 		private float spacingWidth = 2.0f;
 
-		private ScrollRect scrollRect;
+        private ScrollRect scrollRect;
+
 		private RecyclingSystem _recyclingSystem;
 
 		private Vector2 _prevAnchoredPos;
 
 		/// <summary>
-		/// 테이블뷰를 초기화하는 함수
+		/// create object pool and prepare scroll listener
 		/// </summary>
 		public void Initialize(IRecyclerViewDataSource dataSource)
 		{
-			scrollRect = GetComponent<ScrollRect>();
+            RectTransform rectTransform = GetComponent<RectTransform>();
+            scrollRect = GetComponent<ScrollRect>();
+            RectTransform content = scrollRect.content;
+
 			_prevAnchoredPos = scrollRect.content.anchoredPosition;
 
-			// recyclingSystem 초기화
-			_recyclingSystem = new RecyclingSystem(scrollRect, 
+			_recyclingSystem = new RecyclingSystem(rectTransform,
+												   scrollRect, 
+												   content,
 												   baseCell, 
 												   dataSource,
-												   invisibleRate, 
+												   populationCoverage, 
 												   spacingHeight, 
 												   spacingWidth);
 
@@ -48,9 +51,9 @@ namespace Maratangsoft.RecyclerView
 		}
 
 		/// <summary>
-		/// 스크롤뷰가 움직였을 때 호출되는 함수
+		/// a callback invoked on the scroll position was changed
 		/// </summary>
-		/// <param name="scrollPos">스크롤의 x, y 위치</param>
+		/// <param name="scrollPos">moved position of scroll</param>
 		public void OnScrollPosChanged(Vector2 scrollPos)
 		{
 			Vector2 scrollDirection = scrollRect.content.anchoredPosition - _prevAnchoredPos;
