@@ -2,15 +2,15 @@ using UnityEngine;
 
 namespace Maratangsoft.RecyclerView
 {
-	[RequireComponent(typeof(RectTransform))]
-	public abstract class RecyclerViewCell<T> : MonoBehaviour
+	//[RequireComponent(typeof(RectTransform))]
+	public interface ICell
 	{
-		public RectTransform CachedRectTransform => GetComponent<RectTransform>();
+		/*public RectTransform CachedRectTransform => GetComponent<RectTransform>();
 
-		// 셀에 대응하는 리스트 항목의 인덱스
+		// 아이템에 대응하는 리스트 항목의 인덱스
 		public int Index { get; set; }
 
-		// 셀의 높이
+		// 아이템의 높이
 		public float Height
 		{
 			get => CachedRectTransform.sizeDelta.y;
@@ -59,6 +59,6 @@ namespace Maratangsoft.RecyclerView
 				CachedRectTransform.GetLocalCorners(corners);
 				CachedRectTransform.anchoredPosition = value - new Vector2(0.0f, corners[3].y);
 			}
-		}
+		}*/
 	}
 }

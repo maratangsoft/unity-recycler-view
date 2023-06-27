@@ -5,18 +5,17 @@ using UnityEngine;
 
 namespace Sample
 {
-	public class SampleRecyclerViewController : RecyclerViewController<SampleData>
+	public class RecyclerViewController : MonoBehaviour, IRecyclerViewDataSource
 	{
-		protected override void Start()
-		{
-			base.Start();
-			LoadData();
-		}
+		[SerializeField]
+		private RecyclerView recyclerView;
 
-		public void OnClickCell(SampleRecyclerViewCell cell)
+		private List<SampleData> _itemDataList;
+
+		void Start()
 		{
-			SampleData clickedItem = _itemDataList[cell.Index];
-			Debug.Log("cell clicked // index: " + clickedItem.Index + ", name: " + clickedItem.Name + ", age: " + clickedItem.Age);
+			LoadData();
+			recyclerView.Initialize(this);
 		}
 
 		void LoadData()
@@ -43,8 +42,17 @@ namespace Sample
 				new SampleData { Index=18, Name="rrr", Age=45 },
 				new SampleData { Index=19, Name="sss", Age=97 },
 			};
+		}
 
-			InitializeTableView();
+		public int GetItemCount()
+		{
+			return _itemDataList.Count;
+		}
+
+		public void BindCell(ICell cell, int index)
+		{
+			var item = cell as SampleRecyclerViewCell;
+			item.BindCell(_itemDataList[index], index);
 		}
 	}
 }
