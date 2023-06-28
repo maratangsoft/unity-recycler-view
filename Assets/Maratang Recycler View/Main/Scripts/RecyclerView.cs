@@ -13,17 +13,18 @@ namespace Maratangsoft.RecyclerView
 		[SerializeField]
 		private RectTransform baseCell;
 		[SerializeField]
-		private float populationCoverage;
+		private float additionalCoverage;
 		[SerializeField]
 		private float spacingHeight = 4.0f;
 		[SerializeField]
 		private float spacingWidth = 2.0f;
 
         private ScrollRect scrollRect;
+		private RectTransform content;
 
 		private RecyclingSystem _recyclingSystem;
 
-		private Vector2 _prevAnchoredPos;
+		private Vector2 _prevScrollPos;
 
 		/// <summary>
 		/// create object pool and prepare scroll listener
@@ -32,16 +33,15 @@ namespace Maratangsoft.RecyclerView
 		{
             RectTransform rectTransform = GetComponent<RectTransform>();
             scrollRect = GetComponent<ScrollRect>();
-            RectTransform content = scrollRect.content;
+			content = scrollRect.content;
 
-			_prevAnchoredPos = scrollRect.content.anchoredPosition;
+			_prevScrollPos = scrollRect.content.anchoredPosition;
 
 			_recyclingSystem = new RecyclingSystem(rectTransform,
 												   scrollRect, 
-												   content,
 												   baseCell, 
 												   dataSource,
-												   populationCoverage, 
+												   additionalCoverage, 
 												   spacingHeight, 
 												   spacingWidth);
 
@@ -56,9 +56,10 @@ namespace Maratangsoft.RecyclerView
 		/// <param name="scrollPos">moved position of scroll</param>
 		public void OnScrollPosChanged(Vector2 scrollPos)
 		{
-			Vector2 scrollDirection = scrollRect.content.anchoredPosition - _prevAnchoredPos;
-			_recyclingSystem.OnScrollPosChanged((int)scrollDirection.y);
-			_prevAnchoredPos = scrollRect.content.anchoredPosition;
+			Vector2 scrollDirection = scrollPos - _prevScrollPos;
+			_recyclingSystem.OnScrollPosChanged(scrollDirection);
+
+			_prevScrollPos = scrollPos;
 		}
 	}
 }

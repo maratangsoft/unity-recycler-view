@@ -28,8 +28,8 @@ namespace Sample
 
 		public void OnClicked()
 		{
-			Debug.Log("cell clicked // cell index: " + _cellIndex);
-			Debug.Log("item index: " + _sampleData.Index + ", name: " + _sampleData.Name + ", age: " + _sampleData.Age);
+			/*Debug.Log("cell clicked // cell index: " + _cellIndex);
+			Debug.Log("item index: " + _sampleData.Index + ", name: " + _sampleData.Name + ", age: " + _sampleData.Age);*/
 		}
 	}
 }
