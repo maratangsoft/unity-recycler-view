@@ -1,6 +1,6 @@
 # Recyclable list view for unity
 ## Overview
-**NOW WORKING...**
+**NOT COMPLETED...**
 
 UGUI Scroll View와 조합해서 리스트 형태로 된 자료를 UI에 뿌리는 스크립트입니다.<br>
 오브젝트 풀을 만들어서 각 아이템 객체를 미리 생성하여 보관해두고,<br>
